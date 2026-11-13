@@ -9,7 +9,7 @@ import { LinkPreset } from "./types/config";
 import { sections } from "./constants/sections";
 
 export const siteConfig: SiteConfig = {
-	title: "Liam 的个人主页",
+	title: "龙玄·Liam 的个人主页",
 	subtitle: "旅途、音乐、游戏与日常",
 	lang: "zh_CN",
 	themeColor: {
@@ -18,7 +18,7 @@ export const siteConfig: SiteConfig = {
 	},
 	banner: {
 		enable: true,
-		src: "assets/images/coastal-dusk.webp",
+		src: "src\assets\images\site-header-strip-web.jpg",
 		position: "center", // Equivalent to object-position, only supports 'top', 'center', 'bottom'. 'center' by default
 		credit: {
 			enable: false, // Display the credit text of the banner image
@@ -52,7 +52,7 @@ export const navBarConfig: NavBarConfig = {
 
 export const profileConfig: ProfileConfig = {
 	avatar: "",
-	name: "Liam",
+	name: "龙玄·Liam",
 	bio: "",
 	links: [
 		{
