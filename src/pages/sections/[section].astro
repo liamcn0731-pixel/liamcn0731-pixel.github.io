@@ -1,0 +1,37 @@
+---
+import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
+import { Icon } from "astro-icon/components";
+import PostPage from "../../components/PostPage.astro";
+import { sections } from "../../constants/sections";
+import MainGridLayout from "../../layouts/MainGridLayout.astro";
+import { getSortedPosts } from "../../utils/content-utils";
+
+export const getStaticPaths = (async () => {
+	const posts = await getSortedPosts();
+	return sections.map((section) => ({
+		params: { section: section.slug },
+		props: {
+			section,
+			posts: posts.filter((post) => post.data.category?.trim() === section.title),
+		},
+	}));
+}) satisfies GetStaticPaths;
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+const { section, posts } = Astro.props;
+---
+
+<MainGridLayout title={section.title} description={section.description}>
+    <header class="card-base mb-4 flex items-center gap-4 px-5 py-6 md:px-8">
+        <span class="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-[var(--btn-regular-bg)] text-[var(--btn-content)]">
+            <Icon name={section.icon} class="text-xl" aria-hidden="true" />
+        </span>
+        <div>
+            <h1 class="text-3xl font-bold text-90">{section.title}</h1>
+            <p class="mt-1 text-75">{section.description}</p>
+        </div>
+    </header>
+    {posts.length > 0 ? <PostPage posts={posts} /> : (
+        <p class="card-base px-5 py-6 text-75 md:px-8">这个板块还没有文章。</p>
+    )}
+</MainGridLayout>

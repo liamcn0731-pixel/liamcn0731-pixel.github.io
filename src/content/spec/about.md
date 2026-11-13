@@ -1,9 +1,5 @@
-# About
-This is the demo site for [Fuwari](https://github.com/saicaca/fuwari).
+# 关于这个小站
 
-::github{repo="saicaca/fuwari"}
+这里是 Liam 的个人主页，收录旅游见闻、音乐随笔、游戏记录和生活日记。四个板块可以从顶部菜单进入，首页按时间展示新文章。
 
-> ### Sources of images used in this site
-> - [Unsplash](https://unsplash.com/)
-> - [星と少女](https://www.pixiv.net/artworks/108916539) by [Stella](https://www.pixiv.net/users/93273965)
-> - [Rabbit - v1.4 Showcase](https://civitai.com/posts/586908) by [Rabbit_YourMajesty](https://civitai.com/user/Rabbit_YourMajesty)
+你也可以在 [GitHub](https://github.com/liamcn0731-pixel) 找到我。

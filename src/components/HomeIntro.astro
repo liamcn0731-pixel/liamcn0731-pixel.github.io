@@ -1,0 +1,70 @@
+---
+import { Icon } from "astro-icon/components";
+import { siteConfig } from "../config";
+import { sections } from "../constants/sections";
+import { getCategoryUrl } from "../utils/url-utils";
+---
+
+<section class="card-base px-5 py-6 md:px-8 md:py-8" aria-labelledby="home-title">
+    <h1 id="home-title" class="m-0 text-3xl font-bold text-90 md:text-4xl">{siteConfig.title}</h1>
+    <p class="mt-2 text-base text-75">把想记住的东西写下来。</p>
+
+    <nav aria-label="文章板块" class="mt-6 grid grid-cols-2 gap-2.5 md:gap-3">
+        {sections.map((section) => (
+            <a
+                class="section-link grid grid-cols-[auto_1fr] items-start gap-2 rounded-xl px-3 py-3 md:gap-3 md:px-4 md:py-4"
+                href={getCategoryUrl(section.title)}
+                style={`--section-hue: ${section.hue}`}
+            >
+                <span class="section-icon grid h-8 w-8 place-items-center rounded-lg md:h-10 md:w-10">
+                    <Icon name={section.icon} class="text-base md:text-lg" aria-hidden="true" />
+                </span>
+                <span class="min-w-0">
+                    <span class="flex items-center justify-between gap-1 font-bold text-90">
+                        {section.title}
+                        <Icon name="fa6-solid:arrow-right" class="section-arrow text-xs" aria-hidden="true" />
+                    </span>
+                    <span class="mt-1 block text-sm leading-relaxed text-75">{section.description}</span>
+                </span>
+            </a>
+        ))}
+    </nav>
+</section>
+
+<style>
+    .section-link {
+        border: 1px solid var(--line-color);
+        transition: background-color 160ms ease, border-color 160ms ease;
+    }
+
+    .section-link:hover,
+    .section-link:focus-visible {
+        background: var(--btn-plain-bg-hover);
+        border-color: var(--primary);
+    }
+
+    .section-link:focus-visible {
+        outline: 2px solid var(--primary);
+        outline-offset: 2px;
+    }
+
+    .section-icon {
+        color: oklch(42% 0.115 var(--section-hue));
+        background: oklch(94% 0.035 var(--section-hue));
+    }
+
+    :global(.dark) .section-icon {
+        color: oklch(84% 0.11 var(--section-hue));
+        background: oklch(32% 0.045 var(--section-hue));
+    }
+
+    .section-arrow {
+        color: var(--btn-content);
+    }
+
+    @media (max-width: 420px) {
+        .section-link {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>

@@ -2,6 +2,7 @@ import { type CollectionEntry, getCollection } from "astro:content";
 import I18nKey from "@i18n/i18nKey";
 import { i18n } from "@i18n/translation";
 import { getCategoryUrl } from "@utils/url-utils.ts";
+import { sections } from "../constants/sections";
 
 // // Retrieve posts and sort them by publication date
 async function getRawSortedPosts() {
@@ -82,33 +83,20 @@ export async function getCategoryList(): Promise<Category[]> {
 	const allBlogPosts = await getCollection<"posts">("posts", ({ data }) => {
 		return import.meta.env.PROD ? data.draft !== true : true;
 	});
-	const count: { [key: string]: number } = {};
-	allBlogPosts.forEach((post: { data: { category: string | null } }) => {
-		if (!post.data.category) {
-			const ucKey = i18n(I18nKey.uncategorized);
-			count[ucKey] = count[ucKey] ? count[ucKey] + 1 : 1;
-			return;
-		}
-
-		const categoryName =
-			typeof post.data.category === "string"
-				? post.data.category.trim()
-				: String(post.data.category).trim();
-
-		count[categoryName] = count[categoryName] ? count[categoryName] + 1 : 1;
-	});
-
-	const lst = Object.keys(count).sort((a, b) => {
-		return a.toLowerCase().localeCompare(b.toLowerCase());
-	});
-
-	const ret: Category[] = [];
-	for (const c of lst) {
-		ret.push({
-			name: c,
-			count: count[c],
-			url: getCategoryUrl(c),
-		});
+	const count = new Map<string, number>(sections.map(({ title }) => [title, 0]));
+	const extraCategories: string[] = [];
+	for (const { data } of allBlogPosts) {
+		const category = data.category?.trim() || i18n(I18nKey.uncategorized);
+		if (!count.has(category)) extraCategories.push(category);
+		count.set(category, (count.get(category) ?? 0) + 1);
 	}
-	return ret;
+	const names = [
+		...sections.map(({ title }) => title),
+		...extraCategories.sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase())),
+	];
+	return names.map((name) => ({
+		name,
+		count: count.get(name) ?? 0,
+		url: getCategoryUrl(name),
+	}));
 }

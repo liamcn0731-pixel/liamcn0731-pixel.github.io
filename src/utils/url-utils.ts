@@ -1,5 +1,6 @@
 import I18nKey from "@i18n/i18nKey";
 import { i18n } from "@i18n/translation";
+import { sections } from "../constants/sections";
 
 export function pathsEqual(path1: string, path2: string) {
 	const normalizedPath1 = path1.replace(/^\/|\/$/g, "").toLowerCase();
@@ -22,6 +23,9 @@ export function getTagUrl(tag: string): string {
 }
 
 export function getCategoryUrl(category: string | null): string {
+	const section = sections.find(({ title }) => title === category?.trim());
+	if (section) return url(`/sections/${section.slug}/`);
+
 	if (
 		!category ||
 		category.trim() === "" ||
