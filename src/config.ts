@@ -18,7 +18,8 @@ export const siteConfig: SiteConfig = {
 	},
 	banner: {
 		enable: true,
-		src: "src\assets\images\site-header-strip-web.jpg",
+		// src/ 目录下的图片使用相对路径，目录之间用 / 分隔。
+		src: "assets/images/site-header-strip-web.jpg",
 		position: "center", // Equivalent to object-position, only supports 'top', 'center', 'bottom'. 'center' by default
 		credit: {
 			enable: false, // Display the credit text of the banner image
