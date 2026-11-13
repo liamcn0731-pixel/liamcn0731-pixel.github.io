@@ -1,0 +1,22 @@
+---
+import { Icon } from "astro-icon/components";
+import { profileConfig } from "../config";
+
+interface Props {
+	class?: string;
+}
+---
+
+{profileConfig.links.length > 0 && (
+    <ul class:list={["flex flex-wrap gap-2", Astro.props.class]}>
+        {profileConfig.links.map(({ name, url, icon }) => (
+            <li>
+                <a href={url} target="_blank" rel="me noopener"
+                   class="btn-regular min-h-10 gap-1.5 rounded-lg px-2 text-sm font-semibold active:scale-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--primary)]">
+                    <Icon name={icon} class="shrink-0 text-base" aria-hidden="true" />
+                    {name}
+                </a>
+            </li>
+        ))}
+    </ul>
+)}

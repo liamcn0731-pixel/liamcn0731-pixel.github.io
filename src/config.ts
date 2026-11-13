@@ -52,7 +52,7 @@ export const navBarConfig: NavBarConfig = {
 };
 
 export const profileConfig: ProfileConfig = {
-	avatar: "",
+	avatar: "assets/images/profile-avatar.webp",
 	name: "龙玄·Liam",
 	bio: "",
 	links: [
@@ -60,6 +60,16 @@ export const profileConfig: ProfileConfig = {
 			name: "GitHub",
 			icon: "fa6-brands:github",
 			url: "https://github.com/liamcn0731-pixel",
+		},
+		{
+			name: "B 站",
+			icon: "fa6-brands:bilibili",
+			url: "https://space.bilibili.com/107762140",
+		},
+		{
+			name: "微博",
+			icon: "fa6-brands:weibo",
+			url: "https://weibo.com/u/7419550697",
 		},
 	],
 };
